@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api.routes import user_routes
+from api.routes import dairy_routes
 from db.database import connect_to_mongo, close_mongo_connection
 
 app = FastAPI(title="Milkman API")
@@ -15,7 +15,7 @@ app.add_middleware(
 )
 
 # Include routers
-app.include_router(user_routes.router, prefix="/api/v1")
+app.include_router(dairy_routes.router, prefix="/api/v1")
 
 # Startup and shutdown events
 @app.on_event("startup")
