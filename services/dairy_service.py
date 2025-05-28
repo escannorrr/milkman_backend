@@ -75,9 +75,9 @@ class DairyService:
             MAIL_FROM="nishadkhdilkar81@gmail.com",
             MAIL_PORT=587,
             MAIL_SERVER="smtp.gmail.com",
-            MAIL_SSL_TLS="true",
-            MAIL_STARTTLS="false",
-            USE_CREDENTIALS="true"
+            MAIL_TLS=True,      
+            MAIL_SSL=False,     
+            USE_CREDENTIALS=True
         )
         
         # Create email content
