@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, Request,BackgroundTasks
 from models.schemas.dairy import SignUpRequestModel, LoginModel, ChangePasswordModel
 from services.dairy_service import dairy_service
 from utils.jwt_token import verify_token
@@ -6,7 +6,7 @@ from utils.jwt_token import verify_token
 router = APIRouter() 
 
 @router.post("/signup")
-async def signup(dairy: SignUpRequestModel):  
+async def signup(dairy: SignUpRequestModel,background_tasks: BackgroundTasks):  
     return await dairy_service.create_dairy(dairy)
 
 @router.post("/login")
