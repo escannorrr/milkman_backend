@@ -1,6 +1,7 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from core.config import settings
 import asyncio
+import certifi
 
 class Database:
     client: AsyncIOMotorClient = None
@@ -16,8 +17,11 @@ async def get_database():
 async def connect_to_mongo():
     """Create database connection and test it"""
     try:
-        db.client = AsyncIOMotorClient(settings.MONGODB_URL)
-        # Test the connection
+        db.client = AsyncIOMotorClient(
+            settings.MONGODB_URL,
+            tls=True,
+            tlsCAFile=certifi.where()
+        )
         await db.client.admin.command('ping')
         print(f"Connected to MongoDB at {settings.MONGODB_URL}")
         print(f"Using database: {settings.DATABASE_NAME}")

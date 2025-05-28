@@ -9,10 +9,11 @@ TWO_DAYS_IN_MINUTES = DAYS_2 * HOURS_PER_DAY * MINUTES_PER_HOUR
 
 class Settings(BaseSettings):
     # Database settings
-    MONGODB_URL: str = "mongodb://localhost:27017"
+    # MONGODB_URL: str = "mongodb://localhost:27017"
+    MONGODB_URL: str = "mongodb+srv://nishadkhadilkar81:NjKDTwwQYVsyjaG3@milkman-cluster.ybzyezr.mongodb.net/"
     DATABASE_NAME: str = "milkman"
     
-    # JWT settings
+    # JWT settings  
     SECRET_KEY: str = "a-string-secret-at-least-256-bits-long"
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = TWO_DAYS_IN_MINUTES
