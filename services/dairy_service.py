@@ -71,7 +71,7 @@ class DairyService:
         # Email configuration (should be moved to a config file or environment variables)
         email_conf = ConnectionConfig(
             MAIL_USERNAME="nishadkhdilkar81@gmail.com",
-            MAIL_PASSWORD="Talent_123",
+            MAIL_PASSWORD="bzjk ibqn koef wehz",
             MAIL_FROM="nishadkhdilkar81@gmail.com",
             MAIL_PORT=587,
             MAIL_SERVER="smtp.gmail.com",
