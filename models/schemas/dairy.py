@@ -6,6 +6,7 @@ class SignUpRequestModel(BaseModel):
     dairyName: str
     ownerName: str
     phoneNumber: int
+    email:str
 
 class LoginModel(BaseModel):
     phoneNumber: int
@@ -15,7 +16,7 @@ class ChangePasswordModel(BaseModel):
     oldPassword: str
     newPassword: str
 
-class DairyModel(BaseModel):  # Changed from UserModel to DairyModel
+class DairyModel(BaseModel): 
     dairyName: str
     ownerName: str
     phoneNumber: int

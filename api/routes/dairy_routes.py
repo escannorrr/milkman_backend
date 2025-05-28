@@ -3,10 +3,10 @@ from models.schemas.dairy import SignUpRequestModel, LoginModel, ChangePasswordM
 from services.dairy_service import dairy_service
 from utils.jwt_token import verify_token
 
-router = APIRouter(tags=["dairies"],prefix="/dairy")
+router = APIRouter() 
 
 @router.post("/signup")
-async def signup(dairy: SignUpRequestModel): 
+async def signup(dairy: SignUpRequestModel):  
     return await dairy_service.create_dairy(dairy)
 
 @router.post("/login")

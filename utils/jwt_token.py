@@ -17,6 +17,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
 def verify_token(token: str) -> str:
     try:
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        print("Payload_Data: ",payload)
         phone_number = payload.get("sub")
         if phone_number is None:
             raise HTTPException(status_code=401, detail="Invalid token")

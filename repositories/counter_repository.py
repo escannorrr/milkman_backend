@@ -23,26 +23,22 @@ class CounterRepository:
     async def get_next_id(self, counter_type: CounterType):
         collection = await self.get_collection()
         initial_value = self.INITIAL_IDS[counter_type]
-        
-        # First, try to find the existing counter
-        counter = await collection.find_one_and_update(
-            {"_id": counter_type.value},
-            {"$inc": {"sequence_value": 1}},
-            upsert=True,
-            return_document=True
-        )
 
-        # If this is the first entry or sequence_value is less than initial value
-        if not counter or counter.get("sequence_value", 0) < initial_value:
-            # Reset to initial value
-            await collection.find_one_and_update(
-                {"_id": counter_type.value},
-                {"$set": {"sequence_value": initial_value}},
-                upsert=True
-            )
+        counter = await collection.find_one({"_id": counter_type.value})
+
+        if not counter:
+            await collection.insert_one({
+               "_id": counter_type.value,
+              "sequence_value": initial_value
+            })
             return initial_value
 
-        return counter["sequence_value"]
+        updated_counter = await collection.find_one_and_update(
+            {"_id": counter_type.value},
+            {"$inc": {"sequence_value": 1}},
+            return_document=True
+        )
+        return updated_counter["sequence_value"]
 
     async def get_next_dairy_id(self):
         return await self.get_next_id(CounterType.DAIRY)
