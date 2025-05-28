@@ -70,9 +70,9 @@ class DairyService:
         
         # Email configuration (should be moved to a config file or environment variables)
         email_conf = ConnectionConfig(
-            MAIL_USERNAME="nishadkhdilkar81@gmail.com",
+            MAIL_USERNAME="nishadkhadilkar81@gmail.com",
             MAIL_PASSWORD="bzjk ibqn koef wehz",
-            MAIL_FROM="nishadkhdilkar81@gmail.com",
+            MAIL_FROM="nishadkhadilkar81@gmail.com",
             MAIL_PORT=587,
             MAIL_SERVER="smtp.gmail.com",
             MAIL_TLS=True,      
@@ -81,11 +81,11 @@ class DairyService:
         )
         
         # Create email content
-        subject = "Your Dairy Management Account"
+        subject = "Your Milkman Account"
         body = f"""
         <html>
         <body>
-            <h2>Welcome to Dairy Management System</h2>
+            <h2>Welcome to Milkman System</h2>
             <p>Hello {owner_name},</p>
             <p>Your account has been created successfully.</p>
             <p>Here is your temporary password: <strong>{temp_password}</strong></p>
