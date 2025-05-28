@@ -7,7 +7,7 @@ router = APIRouter()
 
 @router.post("/signup")
 async def signup(dairy: SignUpRequestModel,background_tasks: BackgroundTasks):  
-    return await dairy_service.create_dairy(dairy,BackgroundTasks)
+    return await dairy_service.create_dairy(dairy,background_tasks)
 
 @router.post("/login")
 async def login(details: LoginModel):
