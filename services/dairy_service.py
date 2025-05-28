@@ -1,4 +1,4 @@
-from fastapi import FastAPI, BackgroundTasks, HTTPException
+from fastapi import BackgroundTasks, HTTPException
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
 import random
 import string
@@ -8,8 +8,6 @@ from repositories.dairy_repository import dairy_repository
 from repositories.counter_repository import counter_repository
 from utils.jwt_token import create_access_token, verify_token
 import logging
-import os
-from dotenv import load_dotenv
 
 class DairyService: 
     def __init__(self):
@@ -72,14 +70,14 @@ class DairyService:
         
         # Email configuration (should be moved to a config file or environment variables)
         email_conf = ConnectionConfig(
-            MAIL_USERNAME=os.getenv("MAIL_USERNAME"),
-            MAIL_PASSWORD=os.getenv("MAIL_PASSWORD"),
-            MAIL_FROM=os.getenv("MAIL_FROM"),
-            MAIL_PORT=int(os.getenv("MAIL_PORT", 587)),
-            MAIL_SERVER=os.getenv("MAIL_SERVER"),
-            MAIL_SSL_TLS=os.getenv("MAIL_SSL_TLS", "True").lower() in ("true", "1", "t"),
-            MAIL_STARTTLS=os.getenv("MAIL_STARTTLS", "False").lower() in ("true", "1", "t"),
-            USE_CREDENTIALS=os.getenv("USE_CREDENTIALS", "True").lower() in ("true", "1", "t")
+            MAIL_USERNAME="nishadkhdilkar81@gmail.com",
+            MAIL_PASSWORD="Talent_123",
+            MAIL_FROM="nishadkhdilkar81@gmail.com",
+            MAIL_PORT=587,
+            MAIL_SERVER="smtp.gmail.com",
+            MAIL_SSL_TLS="true",
+            MAIL_STARTTLS="false",
+            USE_CREDENTIALS="true"
         )
         
         # Create email content
