@@ -7,6 +7,7 @@ class milkmanDetailsModel(BaseModel):
     milkmanName:str
     phoneNumber:int
     address:str
+    email:str
     adhaarNumber:int
     dlNumber:str
     createdDate : datetime

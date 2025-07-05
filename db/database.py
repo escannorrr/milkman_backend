@@ -18,8 +18,8 @@ async def connect_to_mongo():
     try:
         db.client = AsyncIOMotorClient(
             settings.MONGODB_URL,
-            tls=True,
-            tlsCAFile=certifi.where()
+            # tls=True,
+            # tlsCAFile=certifi.where()
         )
         await db.client.admin.command('ping')
         print("✅ MongoDB connected.")

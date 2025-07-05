@@ -1,5 +1,4 @@
 from fastapi import BackgroundTasks, HTTPException
-from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
 import random
 import string
 from datetime import datetime
@@ -8,6 +7,7 @@ from repositories.dairy_repository import dairy_repository
 from repositories.counter_repository import counter_repository
 from utils.jwt_token import create_access_token, verify_token
 import logging
+from utils.send_email import SendEmail
 
 class DairyService: 
     def __init__(self):
@@ -20,6 +20,7 @@ class DairyService:
         logging.info("Received request to create dairy: %s", dairy.dict())
         # Check if dairy already exists
         existing_dairy = await self.repository.find_by_phone(dairy.phoneNumber)
+        logging.info("Received mongo db dairy: %s", existing_dairy)
         if existing_dairy:
             raise HTTPException(status_code=400, detail="Dairy with this phone number already exists")
 
@@ -53,7 +54,7 @@ class DairyService:
         result = await self.repository.create_dairy(dairy_dict)
         
         # Send email with temporary password
-        await self.send_temp_password_email(
+        await SendEmail.send_temp_password_email(
             background_tasks=background_tasks,
             email=dairy.email,
             owner_name=dairy.ownerName,
@@ -66,49 +67,7 @@ class DairyService:
             "emailSent": True
         }
 
-    async def send_temp_password_email(self, background_tasks: BackgroundTasks, email: str, owner_name: str, temp_password: str):
-        
-        # Email configuration (should be moved to a config file or environment variables)
-        email_conf = ConnectionConfig(
-            MAIL_USERNAME="nishadkhadilkar81@gmail.com",
-            MAIL_PASSWORD="bzjk ibqn koef wehz",
-            MAIL_FROM="nishadkhadilkar81@gmail.com",
-            MAIL_PORT=587,
-            MAIL_SERVER="smtp.gmail.com",
-            MAIL_SSL_TLS=False,
-            MAIL_STARTTLS=True,
-            USE_CREDENTIALS=True
-        )
-        
-        # Create email content
-        subject = "Your Milkman Account"
-        body = f"""
-        <html>
-        <body>
-            <h2>Welcome to Milkman</h2>
-            <p>Hello {owner_name},</p>
-            <p>Your account has been created successfully.</p>
-            <p>Here is your temporary password: <strong>{temp_password}</strong></p>
-            <p>Please login to your account and change your password as soon as possible.</p>
-            <p>Thank you!</p>
-        </body>
-        </html>
-        """
-        
-        # Create message schema
-        message = MessageSchema(
-            subject=subject,
-            recipients=[email],
-            body=body,
-            subtype="html"
-        )
-        
-        # Initialize FastMail
-        fm = FastMail(email_conf)
-        
-        # Send email in the background
-        background_tasks.add_task(fm.send_message, message)
-        logging.info(f"Temporary password email sent to {email}")
+    
 
     async def login(self, details: LoginModel):
         dairy = await self.repository.find_by_phone(details.phoneNumber)

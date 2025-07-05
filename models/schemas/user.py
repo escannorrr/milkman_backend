@@ -24,3 +24,4 @@ class UserModel(BaseModel):
     dairyId: str
     createdDate: str
     updatedDate: str 
+

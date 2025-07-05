@@ -4,10 +4,13 @@ from datetime import datetime
 from models.schemas.milkman import MilkmanModel
 from db.database import get_database
 from fastapi.encoders import jsonable_encoder
+import logging
 
 class MilkmanRepository:
     def __init__(self):
         self.collection_name = "milkman"
+
+    logging.basicConfig(level=logging.INFO)
 
     async def get_collection(self):
         db = await get_database()
@@ -26,6 +29,12 @@ class MilkmanRepository:
         result = await collection.insert_one(milkman_data)
         milkman_data["_id"] = str(result.inserted_id)
         return milkman_data
+
+    async def find_by_phone(self, phone_number: int):
+        collection = await self.get_collection()
+        milkman = await collection.find_one({"phoneNumber": phone_number})
+        logging.info("found Milkman: %s", phone_number)
+        return await collection.find_one({"phoneNumber": phone_number})
 
     async def update_milkman(self, milkman_id: str, update_data: dict):
         collection = await self.get_collection()

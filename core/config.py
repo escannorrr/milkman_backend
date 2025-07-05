@@ -9,8 +9,8 @@ TWO_DAYS_IN_MINUTES = DAYS_2 * HOURS_PER_DAY * MINUTES_PER_HOUR
 
 class Settings(BaseSettings):
     # Database settings
-    # MONGODB_URL: str = "mongodb://localhost:27017"
-    MONGODB_URL: str = "mongodb+srv://nishadkhadilkar81:NjKDTwwQYVsyjaG3@milkman-cluster.ybzyezr.mongodb.net/"
+    MONGODB_URL: str = "mongodb://localhost:27017/"
+    # MONGODB_URL: str = "mongodb+srv://nishadkhadilkar81:NjKDTwwQYVsyjaG3@milkman-cluster.ybzyezr.mongodb.net/"
     DATABASE_NAME: str = "milkman"
     
     # JWT settings  
