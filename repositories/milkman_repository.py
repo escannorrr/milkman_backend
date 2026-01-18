@@ -42,6 +42,13 @@ class MilkmanRepository:
             {"_id": ObjectId(milkman_id)},
             {"$set": update_data}
         )
+        
+    async def add_route_to_milkman(self, milkman_id: str, route_id: str):
+        collection = await self.get_collection()
+        await collection.update_one(
+            {"_id": ObjectId(milkman_id)},
+            {"$addToSet": {"routeIdList": route_id}}
+        )
     
     async def get_all_milkmens(self, dairy_id: str):
         collection = await self.get_collection()

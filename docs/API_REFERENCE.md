@@ -103,12 +103,13 @@ Login as a Milkman.
 
 ---
 
+---
+
 ## 3. Route Operations
-**Prefix**: **Unknown (Root/Default based on code inspection, assumed shared or root)**
-*Note: `routing_routes.py` is likely included in `main.py` but currently I did not see it explicitly mounted in my previous read of `main.py`. If it's not mounted, these endpoints are inactive.*
+**Prefix**: `/routes`
 
 ### Create Route
-- **URL**: `/create_route` (Check `main.py` for mount prefix, often `/api/v1/routes`)
+- **URL**: `/create`
 - **Method**: `POST`
 - **Body**:
   ```json
@@ -118,3 +119,85 @@ Login as a Milkman.
     "clients": ["string"]
   }
   ```
+- **Response**: Route Object
+
+### Get All Routes
+- **URL**: `/all/{dairy_id}`
+- **Method**: `GET`
+- **Response**: List of Route Objects
+
+### Update Route
+- **URL**: `/{route_id}`
+- **Method**: `PUT`
+- **Body**:
+  ```json
+  {
+    "routeName": "string" (optional),
+    "clients": ["string"] (optional)
+  }
+  ```
+
+### Delete Route
+- **URL**: `/{route_id}`
+- **Method**: `DELETE`
+
+### Assign Milkman to Route
+- **URL**: `/assign-milkman`
+- **Method**: `POST`
+- **Body**:
+  ```json
+  {
+    "routeId": "string",
+    "milkmanId": "string"
+  }
+  ```
+
+### Add Customers to Route
+- **URL**: `/{route_id}/customers`
+- **Method**: `POST`
+- **Body**:
+  ```json
+  {
+    "clientIds": ["string", "string"]
+  }
+  ```
+
+
+--- 
+
+## 4. Customer Operations
+**Prefix**: `/customers`
+
+### Create Customer
+- **URL**: `/create`
+- **Method**: `POST`
+- **Body**:
+  ```json
+  {
+    "customerName": "string",
+    "dairyId": "string",
+    "routeId": "string" (optional),
+    "address": "string",
+    "phoneNumber": integer,
+    "dailyQuantity": float,
+    "pricePerLiter": float
+  }
+  ```
+
+### Get All Customers
+- **URL**: `/all/{dairy_id}`
+- **Method**: `GET`
+- **Response**: List of Customer Objects
+
+### Generate Bill (PDF)
+- **URL**: `/generate-bill`
+- **Method**: `POST`
+- **Body**:
+  ```json
+  {
+    "customerId": "string",
+    "startDate": "YYYY-MM-DD",
+    "endDate": "YYYY-MM-DD"
+  }
+  ```
+- **Response**: PDF File Download

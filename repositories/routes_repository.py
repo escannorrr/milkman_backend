@@ -24,5 +24,34 @@ class RoutesRepository:
             {"_id": ObjectId(route_id)},
             {"$set": update_data}
         )
+        
+    async def find_by_id(self, route_id: str):
+        collection = await self.get_collection()
+        # Handle string vs ObjectId conversion if needed, assuming service passes valid ID
+        try:
+             return await collection.find_one({"_id": ObjectId(route_id)})
+        except:
+             return None
+
+    async def find_by_dairy(self, dairy_id: str):
+        collection = await self.get_collection()
+        cursor = collection.find({"dairyId": dairy_id})
+        routes = []
+        async for doc in cursor:
+            doc["_id"] = str(doc["_id"])
+            routes.append(RoutesModel(**doc))
+        return routes
+
+    async def delete_route(self, route_id: str):
+        collection = await self.get_collection()
+        return await collection.delete_one({"_id": ObjectId(route_id)})
+
+    async def add_clients(self, route_id: str, client_ids: list):
+        collection = await self.get_collection()
+        await collection.update_one(
+            {"_id": ObjectId(route_id)},
+            {"$addToSet": {"clients": {"$each": client_ids}}}
+        )
+
 
 routes_repository = RoutesRepository()
