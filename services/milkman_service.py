@@ -63,10 +63,8 @@ class MilkmanService:
         result = await self.repository.create_milkman(milkman_dict)
         return result
     
-    async def get_all_milkmens(self, token:str):
-        phone_number = verify_token(token)
-        dairy = await self.repository.find_by_phone(int(phone_number))
-        result = await self.repository.get_all_milkmens(dairy_id=dairy.dairy_id)
+    async def get_all_milkmens(self, dairy_id: str):
+        result = await self.repository.get_all_milkmens(dairy_id=dairy_id)
         return {
             "milkMan": result
         }
@@ -77,7 +75,7 @@ class MilkmanService:
             raise HTTPException(status_code=401, detail="Phone number does not exist")
 
         milkman_data = MilkmanModel(**milkman)
-        if details.password != milkman_data.password:
+        if not Encrypt.verify_password(details.password, milkman_data.password):
             raise HTTPException(status_code=401, detail="Invalid password/phone number")
 
         access_token = create_access_token({"sub": str(milkman_data.phoneNumber),"auth_roles":["milkman"]})

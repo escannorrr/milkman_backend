@@ -4,7 +4,7 @@ from datetime import datetime
 from models.schemas.routes import RoutesModel
 from db.database import get_database
 
-class DairyRepository:
+class RoutesRepository:
     def __init__(self):
         self.collection_name = "routes"
 
@@ -24,3 +24,5 @@ class DairyRepository:
             {"_id": ObjectId(route_id)},
             {"$set": update_data}
         )
+
+routes_repository = RoutesRepository()

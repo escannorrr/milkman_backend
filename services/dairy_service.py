@@ -46,7 +46,7 @@ class DairyService:
             dairyId=dairy_id,
             createdDate=current_time,
             updatedDate=current_time,
-            email=dairy.email,  # Make sure email is included in the model
+            email=dairy.email, 
         )
 
         # Save dairy
