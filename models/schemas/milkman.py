@@ -1,6 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional,List
-from datetime import datetime
+from typing import Optional, List, Any
 
 class MilkmanModel(BaseModel): 
     milkman_id:Optional[str]=None
@@ -13,6 +12,7 @@ class MilkmanModel(BaseModel):
     phoneNumber:int
     adhaarNo:int
     dl_number:str
+    baseSalary: float = 0.0 # New field
     createdDate: Optional[str]=None
     updatedDate: Optional[str]=None 
 
@@ -26,8 +26,9 @@ class MilkmanResponse(BaseModel):
     phoneNumber:int
     adhaarNo:int
     dl_number:str
-    message: Optional[str] = None,
-    accessToken: Optional[str] = None,
+    baseSalary: float = 0.0
+    message: Optional[str] = None
+    accessToken: Optional[str] = None
 
 class MilkmanRequest(BaseModel):
     milkmanName: str
@@ -37,3 +38,4 @@ class MilkmanRequest(BaseModel):
     phoneNumber:int
     adhaarNo:int
     dl_number:str
+    baseSalary: float = 0.0 # New field

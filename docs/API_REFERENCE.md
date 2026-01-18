@@ -201,3 +201,53 @@ Login as a Milkman.
   }
   ```
 - **Response**: PDF File Download
+
+
+--- 
+
+## 5. Dashboard Operations
+**Prefix**: `/dashboard`
+
+### Get Stats (Triggers Alerts)
+- **URL**: `/stats/{dairy_id}`
+- **Method**: `GET`
+- **Response**: DashboardStats Object
+
+### Get Notifications
+- **URL**: `/notifications/{dairy_id}`
+- **Method**: `GET`
+- **Response**: List of Notification Objects
+
+### Mark Notification Read
+- **URL**: `/notifications/{id}/read`
+- **Method**: `PUT`
+
+
+--- 
+
+## 6. Salary Operations
+**Prefix**: `/salaries`
+
+### Calculate/Create Salary
+- **URL**: `/calculate`
+- **Method**: `POST`
+- **Body**:
+  ```json
+  {
+    "milkmanId": "string",
+    "month": "YYYY-MM",
+  }
+  ```
+- **Response**: Salary Record (Uses Milkman's baseSalary)
+
+### Get Salary History
+- **URL**: `/history/{milkman_id}`
+- **Method**: `GET`
+
+### Pay Salary
+- **URL**: `/pay/{id}`
+- **Method**: `PUT`
+
+### Download Slip (PDF)
+- **URL**: `/slip/{id}`
+- **Method**: `GET`

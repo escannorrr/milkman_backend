@@ -1,7 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api.routes import dairy_routes, milkman_routes, routing_routes, customer_routes
+from api.routes import dairy_routes, milkman_routes, routing_routes, customer_routes, dashboard_routes, salary_routes
 from db.database import connect_to_mongo, close_mongo_connection
 import os
 import uvicorn
@@ -44,6 +44,8 @@ app.include_router(dairy_routes.router, prefix="/api/v1/dairy", tags=["Dairy"])
 app.include_router(milkman_routes.router, prefix="/api/v1/milkman", tags=["Milkman"])
 app.include_router(routing_routes.router, prefix="/api/v1/routes", tags=["Routes"])
 app.include_router(customer_routes.router, prefix="/api/v1/customers", tags=["Customers"])
+app.include_router(dashboard_routes.router, prefix="/api/v1/dashboard", tags=["Dashboard"])
+app.include_router(salary_routes.router, prefix="/api/v1/salaries", tags=["Salaries"])
 
 # Root endpoint for testing
 @app.get("/")
